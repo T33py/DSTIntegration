@@ -1,0 +1,16 @@
+{
+	"SubjectHTTP":"https://api.statbank.dk/v1/subjects",
+	"TableHTTP":"https://api.statbank.dk/v1/tables",
+	"MetadataHTTP":"https://api.statbank.dk/v1/tableinfo",
+	"DataHTTP":"https://api.statbank.dk/v1/data",
+	"Language":"DA",
+	"Format":"JSON",
+	"SubjectID":"",
+	"Recursive":true,
+	"OmitSubjectsWithoutTables":true,
+	"IncludeTables":false,
+	"OnlyTablesUpdatedWithinDays":"10",
+	"TableSubject":"",
+	"TableID":"DNKAP",
+	"":""
+}

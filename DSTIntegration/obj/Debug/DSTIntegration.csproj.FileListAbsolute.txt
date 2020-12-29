@@ -1,0 +1,16 @@
+C:\Users\Thorb\source\repos\DSTIntegration\DSTIntegration\bin\Debug\DSTSettings.json
+C:\Users\Thorb\source\repos\DSTIntegration\DSTIntegration\bin\Debug\DSTIntegration.exe.config
+C:\Users\Thorb\source\repos\DSTIntegration\DSTIntegration\bin\Debug\DSTIntegration.exe
+C:\Users\Thorb\source\repos\DSTIntegration\DSTIntegration\bin\Debug\DSTIntegration.pdb
+C:\Users\Thorb\source\repos\DSTIntegration\DSTIntegration\bin\Debug\DSTIntegrationLib.dll
+C:\Users\Thorb\source\repos\DSTIntegration\DSTIntegration\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Thorb\source\repos\DSTIntegration\DSTIntegration\bin\Debug\DSTIntegrationLib.pdb
+C:\Users\Thorb\source\repos\DSTIntegration\DSTIntegration\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Thorb\source\repos\DSTIntegration\DSTIntegration\obj\Debug\DSTIntegration.csprojAssemblyReference.cache
+C:\Users\Thorb\source\repos\DSTIntegration\DSTIntegration\obj\Debug\DSTIntegration.csproj.CoreCompileInputs.cache
+C:\Users\Thorb\source\repos\DSTIntegration\DSTIntegration\obj\Debug\DSTIntegration.csproj.CopyComplete
+C:\Users\Thorb\source\repos\DSTIntegration\DSTIntegration\obj\Debug\DSTIntegration.exe
+C:\Users\Thorb\source\repos\DSTIntegration\DSTIntegration\obj\Debug\DSTIntegration.pdb
+C:\Users\Thorb\source\repos\DSTIntegration\DSTIntegration\bin\Debug\RestSharp.dll
+C:\Users\Thorb\source\repos\DSTIntegration\DSTIntegration\bin\Debug\RestSharp.xml
+C:\Users\Thorb\source\repos\DSTIntegration\DSTIntegration\bin\Debug\metadata_stub.txt
