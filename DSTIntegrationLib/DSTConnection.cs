@@ -16,7 +16,7 @@ namespace DSTIntegrationLib
         public Dictionary<string, string> Settings { get => settings; set => settings = value; }
         
         /// <summary>
-        /// Retrieve subjects using the settings as they are in DSTSettings.json
+        /// Retrieve subjects using the current settings
         /// </summary>
         /// <returns></returns>
         public IRestResponse RetrieveSubjects()
@@ -32,6 +32,10 @@ namespace DSTIntegrationLib
             return response;
         }
 
+        /// <summary>
+        /// Retrieve the list of tables using the current settings
+        /// </summary>
+        /// <returns></returns>
         public IRestResponse RetrieveTables()
         {
             var request = RequestBuilder.RetrieveTables(settings);
@@ -45,6 +49,10 @@ namespace DSTIntegrationLib
             return response;
         }
 
+        /// <summary>
+        /// Retrieve metadata for a specific table
+        /// </summary>
+        /// <returns></returns>
         public IRestResponse RetrieveMetadata()
         {
             var request = RequestBuilder.RetrieveMetadata(settings);
@@ -58,6 +66,11 @@ namespace DSTIntegrationLib
             return response;
         }
 
+        /// <summary>
+        /// Retrieve the table data covered by the provided metadata object
+        /// </summary>
+        /// <param name="metadata"></param>
+        /// <returns></returns>
         public IRestResponse RetrieveTable(TableMetadata metadata)
         {
             var request = RequestBuilder.RetrieveTable(settings, metadata);

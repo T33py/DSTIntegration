@@ -2,3 +2,5 @@
 */.vs/*
 /bin/*
 */bin/*
+/obj/Debug/*
+*/obj/Debug/*

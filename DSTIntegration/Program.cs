@@ -19,7 +19,7 @@ namespace DSTIntegration
             DSTConnection conn = new DSTConnection();
             DSTRequestHandler execute = new DSTRequestHandler(conn);
 
-            Console.WriteLine("Welcome to the CLI for DSTIntegrationLibrary. While the -help command remains on the todolist please consult sourcecode and readme(once written) for further information.");
+            Console.WriteLine("Welcome to the CLI for DSTIntegrationLibrary. While the -help command and error handling remains on the todolist please consult sourcecode and readme for further information.");
             Console.WriteLine("Missing functionality of note:");
             Console.WriteLine("  - parsing strings in the commandline (arguments surrounded by \" \")");
             Console.WriteLine("  - table metadata");
