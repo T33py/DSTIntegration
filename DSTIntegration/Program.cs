@@ -23,7 +23,7 @@ namespace DSTIntegration
             Console.WriteLine("Welcome to the CLI for DSTIntegrationLibrary. While the -help command and error handling remains on the todolist please consult sourcecode and readme for further information.");
             Console.WriteLine("Missing functionality of note:");
             Console.WriteLine("  - parsing strings in the commandline (arguments surrounded by \" \")");
-            Console.WriteLine("  - table metadata");
+            //Console.WriteLine("  - table metadata");
             Console.WriteLine("  - building limited scope metadata for use with getting table data");
             Console.WriteLine("  - table data");
             Console.WriteLine("  - keeping track of data retrieved, so it can be written to files");

@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace DSTIntegration.CommandHandlers
 {
+    /// <summary>
+    /// Retrieve the requested data as an appropriate .NET object
+    /// </summary>
     public static class Retrievers
     {
         /// <summary>
