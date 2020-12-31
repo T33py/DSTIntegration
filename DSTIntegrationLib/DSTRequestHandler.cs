@@ -129,7 +129,11 @@ namespace DSTIntegration
             return Retrievers.RetrieveTables(connection);
         }
 
-
+        /// <summary>
+        /// Get a list of tables based on the provided parameters
+        /// </summary>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
         public List<Table> GetTables(GetTablesParameters parameters)
         {
             List<Table> tables;
@@ -203,6 +207,11 @@ namespace DSTIntegration
             return Retrievers.RetrieveTableMetadata(connection);
         }
 
+        /// <summary>
+        /// Retrieve metadata based on the parameters provided
+        /// </summary>
+        /// <param name="parameters">Information for the request</param>
+        /// <returns></returns>
         public TableMetadata GetTableMetadata(GetTableMetadataParameters parameters)
         {
             TableMetadata metadata;
@@ -220,6 +229,11 @@ namespace DSTIntegration
             return metadata;
         }
 
+        /// <summary>
+        /// Retrieve metadata of this table
+        /// </summary>
+        /// <param name="tableID"></param>
+        /// <returns></returns>
         public TableMetadata GetTableMetadata(string tableID)
         {
             connection.Settings[SettingConstants.TableID] = tableID;

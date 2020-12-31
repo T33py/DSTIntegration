@@ -51,6 +51,9 @@ namespace DSTIntegrationLib.ConnectionHelpers
 
     }
 
+    /// <summary>
+    /// Keys for the settings used by the connections
+    /// </summary>
     public static class SettingConstants
     {
         public static string SubjectHTTP = "SubjectHTTP";

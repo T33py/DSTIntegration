@@ -71,7 +71,7 @@ namespace DSTIntegrationLib
         /// </summary>
         /// <param name="metadata"></param>
         /// <returns></returns>
-        public IRestResponse RetrieveTable(TableMetadata metadata)
+        public IRestResponse RetrieveTableData(TableMetadata metadata)
         {
             var request = RequestBuilder.RetrieveTable(settings, metadata);
 

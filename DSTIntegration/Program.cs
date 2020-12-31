@@ -71,7 +71,9 @@ namespace DSTIntegration
                     var parameters = GetTableMetadata(request).parameters;
                     TableMetadata metadata = execute.GetTableMetadata(parameters);
 
+                    Console.WriteLine();
                     Console.WriteLine(metadata);
+                    Console.WriteLine();
                 }
                 else if (CheckStop(request))
                 {
