@@ -161,8 +161,6 @@ namespace DSTIntegrationLib.ConnectionHelpers
                 "\"variables\":" + ReformatMetadata(metadata) + "" +
                 "}";
 
-            Console.WriteLine(json);
-            Console.Read();
 
             //
             // build request

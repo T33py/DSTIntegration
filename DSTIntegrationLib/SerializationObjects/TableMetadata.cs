@@ -43,6 +43,25 @@ namespace DSTIntegrationLib.SerializationObjects
         [JsonProperty]
         public List<Variable> variables;
 
+        public override string ToString()
+        {
+            string to_string_template = "{0}({1}) - Unit: {2}\n{3}";
+            string variables = PrintVariables("  ");
+            return string.Format(to_string_template, text, id, unit, variables);
+        }
+
+        public string PrintVariables(string idt)
+        {
+            Console.WriteLine("VariableIDT='" + idt + "'");
+            string vars = "";
+
+            foreach (var variable in variables)
+            {
+                vars = vars + idt + variable.ToString(idt) + "\n";
+            }
+
+            return vars;
+        }
     }
 
     public class Variable
@@ -65,6 +84,37 @@ namespace DSTIntegrationLib.SerializationObjects
         [JsonProperty]
         public List<Value> values;
 
+        /// <summary>
+        /// Indented ToString() impl
+        /// </summary>
+        /// <param name="idt"></param>
+        /// <returns></returns>
+        public string ToString(string idt)
+        {
+            string template = "{0}({1})\n{2}";
+            string values = PrintValues(idt + "  ");
+            return string.Format(template, text, id, values);
+        }
+
+        public override string ToString()
+        {
+            string template = "{0}({1})\n{2}";
+            var values = PrintValues("  ");
+            return string.Format(template, text, id, values);
+        }
+
+        public string PrintValues(string idt)
+        {
+            Console.WriteLine("ValueIDT='" + idt + "'");
+            string vals = "";
+
+            foreach (var val in values)
+            {
+                vals = vals + idt + string.Format("{0}({1})\n", val.text, val.id);
+            }
+
+            return vals;
+        }
     }
 
     public class Value

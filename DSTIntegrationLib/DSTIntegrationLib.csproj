@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommandHandlers\CommandParameterObjects\GetSubjectsParameters.cs" />
+    <Compile Include="CommandHandlers\CommandParameterObjects\GetTableMetadataParameters.cs" />
     <Compile Include="CommandHandlers\CommandParameterObjects\GetTablesParameters.cs" />
     <Compile Include="CommandHandlers\Retrievers.cs" />
     <Compile Include="DSTConnection.cs" />

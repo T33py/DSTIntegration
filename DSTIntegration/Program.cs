@@ -1,5 +1,5 @@
-﻿using DSTIntegration.CommandHandlers.CommandParameterObjects;
-using DSTIntegrationLib;
+﻿using DSTIntegrationLib;
+using DSTIntegrationLib.CommandHandlers.CommandParameterObjects;
 using DSTIntegrationLib.ConnectionHelpers;
 using DSTIntegrationLib.SerializationObjects;
 using System;
@@ -16,8 +16,9 @@ namespace DSTIntegration
         static void Main(string[] args)
         {
             bool stop = false;
-            DSTConnection conn = new DSTConnection();
-            DSTRequestHandler execute = new DSTRequestHandler(conn);
+            //DSTConnection conn = new DSTConnection();
+            //DSTRequestHandler execute = new DSTRequestHandler(conn);
+            DSTRequestHandler execute = new DSTRequestHandler();
 
             Console.WriteLine("Welcome to the CLI for DSTIntegrationLibrary. While the -help command and error handling remains on the todolist please consult sourcecode and readme for further information.");
             Console.WriteLine("Missing functionality of note:");
@@ -36,27 +37,10 @@ namespace DSTIntegration
 
                 if (GetSubjects(request).requested)
                 {
+                    Console.WriteLine("Getting subjects.");
                     var parameters = GetSubjects(request).parameters;
-                    bool recursive = parameters.Recursive;
-                    string subjects_requested = parameters.SubjectIDs;
-                    List<Subject> subjects;
+                    List<Subject> subjects = execute.GetSubjects(parameters);
 
-                    if(subjects_requested.Length > 0 && recursive)
-                    {
-                        subjects = execute.GetSubjects(subjects_requested, recursive);
-                    }
-                    else if (subjects_requested.Length > 0)
-                    {
-                        subjects = execute.GetSubjects(subjects_requested);
-                    }
-                    else if (recursive)
-                    {
-                        subjects = execute.GetSubjects(recursive);
-                    }
-                    else
-                    {
-                        subjects = execute.GetSubjects();
-                    }
 
                     Console.WriteLine();
                     foreach(var subject in subjects)
@@ -68,25 +52,10 @@ namespace DSTIntegration
                 }
                 else if (GetTables(request).requested)
                 {
+                    Console.WriteLine("Getting tables.");
                     var parameters = GetTables(request).parameters;
-                    List<Table> tables;
+                    List<Table> tables = execute.GetTables(parameters);
                     
-                    if(parameters.SubjectIDs.Length > 0 && parameters.UpatedWithinDays > -1)
-                    {
-                        tables = execute.GetTables(parameters.SubjectIDs, parameters.UpatedWithinDays);
-                    }
-                    else if(parameters.SubjectIDs.Length > 0)
-                    {
-                        tables = execute.GetTables(parameters.SubjectIDs);
-                    }
-                    else if(parameters.UpatedWithinDays > -1)
-                    {
-                        tables = execute.GetTables(parameters.UpatedWithinDays);
-                    }
-                    else
-                    {
-                        tables = execute.GetTables();
-                    }
 
                     Console.WriteLine();
                     foreach (var table in tables)
@@ -95,6 +64,14 @@ namespace DSTIntegration
                     }
                     Console.WriteLine();
 
+                }
+                else if (GetTableMetadata(request).requested)
+                {
+                    Console.WriteLine("Getting table-metadata.");
+                    var parameters = GetTableMetadata(request).parameters;
+                    TableMetadata metadata = execute.GetTableMetadata(parameters);
+
+                    Console.WriteLine(metadata);
                 }
                 else if (CheckStop(request))
                 {
@@ -188,6 +165,40 @@ namespace DSTIntegration
                         parameters.UpatedWithinDays = int.Parse(args[i]);
                     }
 
+                }
+
+                return (true, parameters);
+            }
+
+            return (false, parameters);
+        }
+
+
+        public static (bool requested, GetTableMetadataParameters parameters) GetTableMetadata(string request)
+        {
+            request = request.ToLower();
+            GetTableMetadataParameters parameters = new GetTableMetadataParameters();
+
+            if (request.Contains("-metadata") || request.Contains("-md"))
+            {
+                var args = request.Split(' ');
+
+                for(int i = 0; i < args.Length; i++)
+                {
+                    string arg = args[i];
+
+                    if (arg.Equals("-id"))
+                    {
+                        i++;
+                        if(i >= args.Length)
+                        {
+                            parameters.TableID = "";
+                        }
+                        else
+                        {
+                            parameters.TableID = args[i];
+                        }
+                    }
                 }
 
                 return (true, parameters);

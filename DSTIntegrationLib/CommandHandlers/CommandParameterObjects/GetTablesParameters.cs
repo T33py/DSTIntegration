@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DSTIntegration.CommandHandlers.CommandParameterObjects
+namespace DSTIntegrationLib.CommandHandlers.CommandParameterObjects
 {
     public class GetTablesParameters
     {

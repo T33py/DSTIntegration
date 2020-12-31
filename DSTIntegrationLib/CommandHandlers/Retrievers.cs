@@ -56,5 +56,29 @@ namespace DSTIntegration.CommandHandlers
 
             return tables;
         }
+
+
+        public static TableMetadata RetrieveTableMetadata(DSTConnection connection)
+        {
+            TableMetadata tables = new TableMetadata();
+
+            var response = connection.RetrieveMetadata();
+
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                tables = JSONDeserializer.DeserializeMetadata(response.Content);
+            }
+            else
+            {
+                Console.WriteLine("HTTP error: " + response.StatusCode + " -> " + response.Content);
+            }
+
+            return tables;
+        }
+
+        /// <summary>
+        /// Good boi
+        /// </summary>
+        public static string Golden { get => "WOOF"; }
     }
 }

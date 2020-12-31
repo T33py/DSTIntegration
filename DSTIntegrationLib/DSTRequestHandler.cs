@@ -1,5 +1,6 @@
 ﻿using DSTIntegration.CommandHandlers;
 using DSTIntegrationLib;
+using DSTIntegrationLib.CommandHandlers.CommandParameterObjects;
 using DSTIntegrationLib.ConnectionHelpers;
 using DSTIntegrationLib.SerializationObjects;
 using System;
@@ -44,6 +45,37 @@ namespace DSTIntegration
         {
             connection.Settings[SettingConstants.Recursive] = "false";
             return Retrievers.RetrieveSubjects(connection);
+        }
+
+        /// <summary>
+        /// Retrieve subjects with the given settings
+        /// </summary>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
+        public List<Subject> GetSubjects(GetSubjectsParameters parameters)
+        {
+            bool recursive = parameters.Recursive;
+            string subjects_requested = parameters.SubjectIDs;
+            List<Subject> subjects;
+
+            if (subjects_requested.Length > 0 && recursive)
+            {
+                subjects = GetSubjects(subjects_requested, recursive);
+            }
+            else if (subjects_requested.Length > 0)
+            {
+                subjects = GetSubjects(subjects_requested);
+            }
+            else if (recursive)
+            {
+                subjects = GetSubjects(recursive);
+            }
+            else
+            {
+                subjects = GetSubjects();
+            }
+
+            return subjects;
         }
 
         /// <summary>
@@ -97,6 +129,31 @@ namespace DSTIntegration
             return Retrievers.RetrieveTables(connection);
         }
 
+
+        public List<Table> GetTables(GetTablesParameters parameters)
+        {
+            List<Table> tables;
+
+            if (parameters.SubjectIDs.Length > 0 && parameters.UpatedWithinDays > -1)
+            {
+                tables = GetTables(parameters.SubjectIDs, parameters.UpatedWithinDays);
+            }
+            else if (parameters.SubjectIDs.Length > 0)
+            {
+                tables = GetTables(parameters.SubjectIDs);
+            }
+            else if (parameters.UpatedWithinDays > -1)
+            {
+                tables = GetTables(parameters.UpatedWithinDays);
+            }
+            else
+            {
+                tables = GetTables();
+            }
+
+            return tables;
+        }
+
         /// <summary>
         /// Retrieve tables updated within the specified number of days
         /// </summary>
@@ -131,6 +188,42 @@ namespace DSTIntegration
             connection.Settings[SettingConstants.SubjectID] = subjectIDs;
             connection.Settings[SettingConstants.OnlyTablesUpdatedWithinDays] = updatedWithinDays.ToString();
             return Retrievers.RetrieveTables(connection);
+        }
+
+        #endregion
+
+        #region GetMetadata
+
+        /// <summary>
+        /// Retrieve metadata of the currently selected table
+        /// </summary>
+        /// <returns></returns>
+        public TableMetadata GetTableMetadata()
+        {
+            return Retrievers.RetrieveTableMetadata(connection);
+        }
+
+        public TableMetadata GetTableMetadata(GetTableMetadataParameters parameters)
+        {
+            TableMetadata metadata;
+
+            if(parameters.TableID.Length > 0)
+            {
+                Console.WriteLine("Of table " + parameters.TableID);
+                metadata = GetTableMetadata(parameters.TableID);
+            }
+            else
+            {
+                metadata = GetTableMetadata();
+            }
+
+            return metadata;
+        }
+
+        public TableMetadata GetTableMetadata(string tableID)
+        {
+            connection.Settings[SettingConstants.TableID] = tableID;
+            return Retrievers.RetrieveTableMetadata(connection);
         }
 
         #endregion
