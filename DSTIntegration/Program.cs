@@ -157,7 +157,8 @@ namespace DSTIntegration
                             parameters.SubjectIDs = ""; 
                         }
                         else 
-                        { 
+                        {
+                            Console.WriteLine("Sbuject: " + args[i]);
                             parameters.SubjectIDs = args[i]; 
                         }
                     }

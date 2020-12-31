@@ -9,7 +9,8 @@ using System.Threading.Tasks;
 namespace DSTIntegration.CommandHandlers
 {
     /// <summary>
-    /// Retrieve the requested data as an appropriate .NET object
+    /// Retrieve the requested data as an appropriate .NET object.
+    /// TODO: implement propper error handling.
     /// </summary>
     public static class Retrievers
     {
@@ -60,7 +61,11 @@ namespace DSTIntegration.CommandHandlers
             return tables;
         }
 
-
+        /// <summary>
+        /// Retrieve table metadata using the connection provided.
+        /// </summary>
+        /// <param name="connection"></param>
+        /// <returns></returns>
         public static TableMetadata RetrieveTableMetadata(DSTConnection connection)
         {
             TableMetadata tables = new TableMetadata();

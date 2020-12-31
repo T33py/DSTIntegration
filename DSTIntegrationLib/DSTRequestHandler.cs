@@ -138,6 +138,8 @@ namespace DSTIntegration
         {
             List<Table> tables;
 
+            Console.WriteLine(parameters.SubjectIDs + ", " + parameters.UpatedWithinDays);
+
             if (parameters.SubjectIDs.Length > 0 && parameters.UpatedWithinDays > -1)
             {
                 tables = GetTables(parameters.SubjectIDs, parameters.UpatedWithinDays);
@@ -177,7 +179,7 @@ namespace DSTIntegration
         /// <returns></returns>
         public List<Table> GetTables(string subjectIDs)
         {
-            connection.Settings[SettingConstants.SubjectID] = subjectIDs;
+            connection.Settings[SettingConstants.TableSubject] = subjectIDs;
             return Retrievers.RetrieveTables(connection);
         }
 
