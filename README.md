@@ -2,22 +2,23 @@
 
 This has been developed as a holliday fun project, and as such documentation may be lacking.
 The CLI is currently under construction and the Library is having its quality of life functionality implemented as is needed for that.
+The format in which prints are created is {name}({ID}) eg "Levevilkår(05)" would be the print of the subject with ID 05
 
 **Features currently in the CLI:**
  - To end interaction type "exit" or "-e"
- - Retrieve the table subjects by using "-subjects" or "-subs". This command has two optional arguments.
-   - "-id <id>" or "-ids <id>" is used to pass a comma-sepparated list of subject IDs that you wish to retrieve sub-subjects for. This does not currently support any whitespace.
+ - Retrieve the table subjects by using "subjects" or "-subs". This command has two optional arguments.
+   - "-id {id}" or "-ids {id}" is used to pass a comma-sepparated list of subject IDs that you wish to retrieve sub-subjects for. This does not currently support any whitespace.
    - "-rec" toggles recursive request on, which will result in subjects, sub-subjects, sub-sub-subjects etc. being retrieved. 
- - Retrieve the list of tables related to specific subjects by using "-tables" or "-ts". This command has two optional arguments.
-   - "-id <id>" or "-ids <id>" is used to pass a comma-sepparated list of subject IDs that you wish to retrieve tables for. This does not currently support any whitespace.
-   - "-dslu <int>" or "-ds <int>" is the maximum number of days that has passed sinc the last table update. The plan is to have -1 as the unlimited value.
- - Retrieve metadata of a table using "-metadata" or "-md" it takes one optional argument.
-   - "-id" is the ID of the table to retrieve.
- - Retrieve data from the table which you have metadata loaded for by using the command "GetData". This runs the currently stored DataRequest which can be edited using several commands
-   - "add variable <id>" adds the variable (category of values) to the DataRequest
-   - "add value <variableID> <id>" adds both the value and variable to the DataRequest
-   - "remove variable <id>" removes the variable and all associated values from the DataRequest
-   - "remove value <variableID> <id>" removes the specified value from the DataRequest
+ - Retrieve the list of tables related to specific subjects by using "tables" or "-ts". This command has two optional arguments.
+   - "-id {id}" or "-ids {id}" is used to pass a comma-sepparated list of subject IDs that you wish to retrieve tables for. This does not currently support any whitespace.
+   - "-dslu {int}" or "-ds {int}" is the maximum number of days that has passed sinc the last table update. The plan is to have -1 as the unlimited value.
+ - Retrieve metadata of a table using "metadata" or "-md" it takes one optional argument.
+   - "-id {id}" is the ID of the table to retrieve.
+ - Retrieve data from the table which you have most recently loaded metadata from by using "GetData". This runs the currently stored DataRequest which can be edited using several commands
+   - "add variable {id}" adds the variable (category of values) to the DataRequest
+   - "add value {variableID} {id}" adds both the value and variable to the DataRequest
+   - "remove variable {id}" removes the variable and all associated values from the DataRequest
+   - "remove value {variableID} {id}" removes the specified value from the DataRequest
    - "print CurrentMetadata"   
    - "print DataRequest"   
    - ""   
