@@ -44,7 +44,7 @@ namespace DSTIntegration
         public List<Subject> GetSubjects()
         {
             connection.Settings[SettingConstants.Recursive] = "false";
-            return Retrievers.RetrieveSubjects(connection);
+            return Retrievers.SubjectsRetriever(connection);
         }
 
         /// <summary>
@@ -86,7 +86,7 @@ namespace DSTIntegration
         public List<Subject> GetSubjects(bool recursive)
         {
             connection.Settings[SettingConstants.Recursive] = recursive.ToString().ToLower();
-            return Retrievers.RetrieveSubjects(connection);
+            return Retrievers.SubjectsRetriever(connection);
         }
 
         /// <summary>
@@ -99,7 +99,7 @@ namespace DSTIntegration
             Console.WriteLine("Get subject " + specific_subjects);
             connection.Settings[SettingConstants.SubjectID] = specific_subjects;
             connection.Settings[SettingConstants.Recursive] = "false";
-            return Retrievers.RetrieveSubjects(connection);
+            return Retrievers.SubjectsRetriever(connection);
         }
 
         /// <summary>
@@ -113,7 +113,7 @@ namespace DSTIntegration
             Console.WriteLine("Get subject " + specific_subjects);
             connection.Settings[SettingConstants.SubjectID] = specific_subjects;
             connection.Settings[SettingConstants.Recursive] = recursive.ToString().ToLower();
-            return Retrievers.RetrieveSubjects(connection);
+            return Retrievers.SubjectsRetriever(connection);
         }
 
         #endregion
@@ -126,7 +126,7 @@ namespace DSTIntegration
         /// <returns></returns>
         public List<Table> GetTables()
         {
-            return Retrievers.RetrieveTables(connection);
+            return Retrievers.TablesRetriever(connection);
         }
 
         /// <summary>
@@ -169,7 +169,7 @@ namespace DSTIntegration
         {
             connection.Settings[SettingConstants.SubjectID] = ""; // we want all the tables here
             connection.Settings[SettingConstants.OnlyTablesUpdatedWithinDays] = updatedWithinDays.ToString();
-            return Retrievers.RetrieveTables(connection);
+            return Retrievers.TablesRetriever(connection);
         }
 
         /// <summary>
@@ -180,7 +180,7 @@ namespace DSTIntegration
         public List<Table> GetTables(string subjectIDs)
         {
             connection.Settings[SettingConstants.TableSubject] = subjectIDs;
-            return Retrievers.RetrieveTables(connection);
+            return Retrievers.TablesRetriever(connection);
         }
 
         /// <summary>
@@ -193,7 +193,7 @@ namespace DSTIntegration
         {
             connection.Settings[SettingConstants.SubjectID] = subjectIDs;
             connection.Settings[SettingConstants.OnlyTablesUpdatedWithinDays] = updatedWithinDays.ToString();
-            return Retrievers.RetrieveTables(connection);
+            return Retrievers.TablesRetriever(connection);
         }
 
         #endregion
@@ -206,7 +206,7 @@ namespace DSTIntegration
         /// <returns></returns>
         public TableMetadata GetTableMetadata()
         {
-            return Retrievers.RetrieveTableMetadata(connection);
+            return Retrievers.TableMetadataRetriever(connection);
         }
 
         /// <summary>
@@ -239,7 +239,21 @@ namespace DSTIntegration
         public TableMetadata GetTableMetadata(string tableID)
         {
             connection.Settings[SettingConstants.TableID] = tableID;
-            return Retrievers.RetrieveTableMetadata(connection);
+            return Retrievers.TableMetadataRetriever(connection);
+        }
+
+        #endregion
+
+        #region GetData
+
+        /// <summary>
+        /// Since the data requested is tied to the table metadata, a datarequest is performed for the variables contained in the provided metadata object.
+        /// </summary>
+        /// <param name="requestData"></param>
+        /// <returns></returns>
+        public string GetTableData(TableMetadata requestData)
+        {
+            return Retrievers.TableDataRetriever(connection, requestData);
         }
 
         #endregion

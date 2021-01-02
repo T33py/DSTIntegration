@@ -43,6 +43,36 @@ namespace DSTIntegrationLib.SerializationObjects
         [JsonProperty]
         public List<Variable> variables;
 
+        
+        [NonSerialized]
+        Dictionary<string, Variable> vars;
+        public Dictionary<string, Variable> Variables {
+            get
+            {
+                if(vars is null)
+                {
+                    GenVars();
+                }
+                else if (vars.Keys.Count != variables.Count)
+                {
+                    GenVars();
+                }
+                return vars;
+            }
+            set => vars = value; 
+        }
+
+
+        void GenVars()
+        {
+            vars = new Dictionary<string, Variable>();
+            foreach(var variable in variables)
+            {
+                vars[variable.id.ToLower()] = variable;
+            }
+        }
+
+
         public override string ToString()
         {
             string to_string_template = "{0}({1}) - Unit: {2}\n{3}";
@@ -52,7 +82,6 @@ namespace DSTIntegrationLib.SerializationObjects
 
         public string PrintVariables(string idt)
         {
-            Console.WriteLine("VariableIDT='" + idt + "'");
             string vars = "";
 
             foreach (var variable in variables)
@@ -84,6 +113,36 @@ namespace DSTIntegrationLib.SerializationObjects
         [JsonProperty]
         public List<Value> values;
 
+
+        [NonSerialized]
+        Dictionary<string, Value> vals;
+        public Dictionary<string, Value> Values
+        {
+            get
+            {
+                if (vals is null)
+                {
+                    GenVals();
+                }
+                else if (vals.Keys.Count != values.Count)
+                {
+                    GenVals();
+                }
+                return vals;
+            }
+            set => vals = value;
+        }
+
+
+        void GenVals()
+        {
+            vals = new Dictionary<string, Value>();
+            foreach (var value in values)
+            {
+                vals[value.id.ToLower()] = value;
+            }
+        }
+
         /// <summary>
         /// Indented ToString() impl
         /// </summary>
@@ -105,7 +164,6 @@ namespace DSTIntegrationLib.SerializationObjects
 
         public string PrintValues(string idt)
         {
-            Console.WriteLine("ValueIDT='" + idt + "'");
             string vals = "";
 
             foreach (var val in values)

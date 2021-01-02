@@ -19,7 +19,7 @@ namespace DSTIntegration.CommandHandlers
         /// </summary>
         /// <param name="settings"></param>
         /// <returns></returns>
-        public static List<Subject> RetrieveSubjects(DSTConnection connection)
+        public static List<Subject> SubjectsRetriever(DSTConnection connection)
         {
             List<Subject> subjects = new List<Subject>();
 
@@ -43,7 +43,7 @@ namespace DSTIntegration.CommandHandlers
         /// </summary>
         /// <param name="settings"></param>
         /// <returns></returns>
-        public static List<Table> RetrieveTables(DSTConnection connection)
+        public static List<Table> TablesRetriever(DSTConnection connection)
         {
             List<Table> tables = new List<Table>();
 
@@ -66,7 +66,7 @@ namespace DSTIntegration.CommandHandlers
         /// </summary>
         /// <param name="connection"></param>
         /// <returns></returns>
-        public static TableMetadata RetrieveTableMetadata(DSTConnection connection)
+        public static TableMetadata TableMetadataRetriever(DSTConnection connection)
         {
             TableMetadata tables = new TableMetadata();
 
@@ -85,8 +85,31 @@ namespace DSTIntegration.CommandHandlers
         }
 
         /// <summary>
+        /// Retrieve data as CSV string
+        /// </summary>
+        /// <param name="connection"></param>
+        /// <param name="metadata"></param>
+        /// <returns></returns>
+        public static string TableDataRetriever(DSTConnection connection, TableMetadata metadata)
+        {
+            string data = "";
+            var response = connection.RetrieveTableData(metadata);
+
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                data = response.Content;
+            }
+            else
+            {
+                Console.WriteLine("HTTP error: " + response.StatusCode + " -> " + response.Content);
+            }
+
+            return data;
+        }
+
+        /// <summary>
         /// Good boi
         /// </summary>
-        public static string Golden { get => "WOOF"; }
+        public static string GoldenRetriever { get => "WOOF"; }
     }
 }
