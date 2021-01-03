@@ -12,9 +12,26 @@ namespace DSTIntegrationLib
 {
     public class DSTConnection
     {
-        Dictionary<string, string> settings = new SettingsBuilder("DSTSettings.json").Variables;
+        Dictionary<string, string> settings;
         public Dictionary<string, string> Settings { get => settings; set => settings = value; }
         
+        /// <summary>
+        /// Instantiate connectionpropperties by reading the settingsfile
+        /// </summary>
+        public DSTConnection()
+        {
+            ResetSettings();
+        }
+
+        /// <summary>
+        /// Instantiate connectionpropperties using the settings provided
+        /// </summary>
+        public DSTConnection(Dictionary<string,string> settings)
+        {
+            this.settings = settings;
+        }
+
+
         /// <summary>
         /// Retrieve subjects using the current settings
         /// </summary>
@@ -27,7 +44,7 @@ namespace DSTIntegrationLib
 
             IRestResponse response = client.Post(request);
 
-            Console.WriteLine(response.Content);
+            // Console.WriteLine(response.Content);
             
             return response;
         }
@@ -44,7 +61,7 @@ namespace DSTIntegrationLib
 
             IRestResponse response = client.Post(request);
 
-            Console.WriteLine(response.Content);
+            // Console.WriteLine(response.Content);
 
             return response;
         }
@@ -61,7 +78,7 @@ namespace DSTIntegrationLib
 
             IRestResponse response = client.Post(request);
 
-            Console.WriteLine(response.Content);
+            // Console.WriteLine(response.Content);
 
             return response;
         }
@@ -79,9 +96,23 @@ namespace DSTIntegrationLib
 
             IRestResponse response = client.Post(request);
 
-            Console.WriteLine(response.Content);
+            // Console.WriteLine(response.Content);
 
             return response;
         }
+
+        #region util
+
+        public void ResetSettings()
+        {
+            settings = new SettingsBuilder("DSTSettings.json").Variables;
+        }
+
+        public void SetLanguage(string lang)
+        {
+            settings[SettingConstants.Language] = lang;
+        }
+
+        #endregion
     }
 }

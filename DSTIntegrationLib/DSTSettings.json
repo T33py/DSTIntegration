@@ -9,7 +9,7 @@
 	"Recursive":true,
 	"OmitSubjectsWithoutTables":true,
 	"IncludeTables":false,
-	"OnlyTablesUpdatedWithinDays":"10",
+	"OnlyTablesUpdatedWithinDays":"366",
 	"TableSubject":"",
 	"TableID":"DNKAP",
 	"":""

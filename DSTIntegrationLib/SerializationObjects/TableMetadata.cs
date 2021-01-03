@@ -75,9 +75,9 @@ namespace DSTIntegrationLib.SerializationObjects
 
         public override string ToString()
         {
-            string to_string_template = "{0}({1}) - Unit: {2}\n{3}";
+            string to_string_template = "{0}({1}) - Unit: {2}\nDescription: {3}\n{4}";
             string variables = PrintVariables("  ");
-            return string.Format(to_string_template, text, id, unit, variables);
+            return string.Format(to_string_template, text, id, unit, description, variables);
         }
 
         public string PrintVariables(string idt)

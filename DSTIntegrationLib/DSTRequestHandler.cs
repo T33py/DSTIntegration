@@ -43,6 +43,7 @@ namespace DSTIntegration
         /// <returns></returns>
         public List<Subject> GetSubjects()
         {
+            connection.Settings[SettingConstants.SubjectID] = "";
             connection.Settings[SettingConstants.Recursive] = "false";
             return Retrievers.SubjectsRetriever(connection);
         }
@@ -220,7 +221,7 @@ namespace DSTIntegration
 
             if(parameters.TableID.Length > 0)
             {
-                Console.WriteLine("Of table " + parameters.TableID);
+                //Console.WriteLine("Of table " + parameters.TableID);
                 metadata = GetTableMetadata(parameters.TableID);
             }
             else
@@ -254,6 +255,21 @@ namespace DSTIntegration
         public string GetTableData(TableMetadata requestData)
         {
             return Retrievers.TableDataRetriever(connection, requestData);
+        }
+
+        #endregion
+
+
+        #region util
+
+        public void ResetSettings()
+        {
+            connection.ResetSettings();
+        }
+
+        public void SetLanguage(string lang)
+        {
+            connection.SetLanguage(lang);
         }
 
         #endregion
