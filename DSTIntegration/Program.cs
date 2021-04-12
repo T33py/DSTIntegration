@@ -18,7 +18,7 @@ namespace DSTIntegration
             bool stop = false;
             //DSTConnection conn = new DSTConnection();
             //DSTRequestHandler execute = new DSTRequestHandler(conn);
-            DSTRequestHandler execute = new DSTRequestHandler();
+            DSTRequestHandler execute = new DSTRequestHandler(true);
             TableMetadata currentMetadata = GenTMD();
             TableMetadata dataRequestMetadata = GenTMD();
 
@@ -137,7 +137,7 @@ namespace DSTIntegration
                         }
                         else if (reset.Equals("settings"))
                         {
-                            execute.ResetSettings();
+                            execute.ResetSettings(true);
                         }
                     }
                     else if (PrintData(request).requested)

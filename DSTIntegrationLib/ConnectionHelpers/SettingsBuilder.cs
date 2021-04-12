@@ -17,7 +17,7 @@ namespace DSTIntegrationLib.ConnectionHelpers
         /// Instantiate the setting builder to get all the variables from settings files
         /// </summary>
         /// <param name="file"></param>
-        public SettingsBuilder(string file)
+        public SettingsBuilder(string file, bool verbose)
         {
             Variables = new Dictionary<string, string>();
             JObject json = JObject.Parse(File.ReadAllText(file));
@@ -41,10 +41,12 @@ namespace DSTIntegrationLib.ConnectionHelpers
             Variables[SettingConstants.TableID] = json[SettingConstants.TableID].ToString();
 
 
-
-            foreach(var v in Variables.Keys)
+            if (verbose)
             {
-                Console.WriteLine(Variables[v]);
+                foreach (var v in Variables.Keys)
+                {
+                    Console.WriteLine(Variables[v]);
+                }
             }
         }
 

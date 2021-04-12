@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DSTIntegration", "DSTIntegr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DSTIntegrationLib", "DSTIntegrationLib\DSTIntegrationLib.csproj", "{E12FA1C1-485A-4A0D-99AD-1D9C4E6C2DDF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DSTDataScraper", "DSTDataScraper\DSTDataScraper.csproj", "{196F41BB-73A6-4AB8-B469-73D4FDEC163A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{E12FA1C1-485A-4A0D-99AD-1D9C4E6C2DDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E12FA1C1-485A-4A0D-99AD-1D9C4E6C2DDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E12FA1C1-485A-4A0D-99AD-1D9C4E6C2DDF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{196F41BB-73A6-4AB8-B469-73D4FDEC163A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{196F41BB-73A6-4AB8-B469-73D4FDEC163A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{196F41BB-73A6-4AB8-B469-73D4FDEC163A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{196F41BB-73A6-4AB8-B469-73D4FDEC163A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

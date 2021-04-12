@@ -18,9 +18,9 @@ namespace DSTIntegrationLib
         /// <summary>
         /// Instantiate connectionpropperties by reading the settingsfile
         /// </summary>
-        public DSTConnection()
+        public DSTConnection(bool verbose)
         {
-            ResetSettings();
+            ResetSettings(verbose);
         }
 
         /// <summary>
@@ -103,9 +103,9 @@ namespace DSTIntegrationLib
 
         #region util
 
-        public void ResetSettings()
+        public void ResetSettings(bool verbose)
         {
-            settings = new SettingsBuilder("DSTSettings.json").Variables;
+            settings = new SettingsBuilder("DSTSettings.json", verbose).Variables;
         }
 
         public void SetLanguage(string lang)

@@ -21,9 +21,9 @@ namespace DSTIntegration
         /// <summary>
         /// Instantiate with default settings
         /// </summary>
-        public DSTRequestHandler()
+        public DSTRequestHandler(bool verbose)
         {
-            connection = new DSTConnection();
+            connection = new DSTConnection(verbose);
         }
 
         /// <summary>
@@ -262,9 +262,9 @@ namespace DSTIntegration
 
         #region util
 
-        public void ResetSettings()
+        public void ResetSettings(bool verbose)
         {
-            connection.ResetSettings();
+            connection.ResetSettings(verbose);
         }
 
         public void SetLanguage(string lang)

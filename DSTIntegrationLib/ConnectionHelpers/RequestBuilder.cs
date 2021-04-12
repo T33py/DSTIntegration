@@ -152,7 +152,10 @@ namespace DSTIntegrationLib.ConnectionHelpers
         public static RestRequest RetrieveTable(Dictionary<string, string> settings, TableMetadata metadata)
         {
             string table = settings[SettingConstants.TableID].ToUpper();
+            if (!metadata.id.Equals("")) table = metadata.id;
+
             string language = settings[SettingConstants.Language].ToLower();
+            
             string json = "{" +
                 "\"lang\":\"" + language + "\"," +
                 "\"table\":\"" + table + "\"," +
@@ -161,7 +164,11 @@ namespace DSTIntegrationLib.ConnectionHelpers
                 "\"variables\":" + ReformatMetadata(metadata) + "" +
                 "}";
 
-
+            //Console.WriteLine();
+            //Console.WriteLine();
+            //Console.WriteLine(json);
+            //Console.WriteLine();
+            //Console.WriteLine();
             //
             // build request
             //
