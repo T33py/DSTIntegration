@@ -43,7 +43,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DatacleaningStrategies\NoNullsStrategy.cs" />
+    <Compile Include="DatacleaningStrategies\NoHeadersOrNullsStrategy.cs" />
+    <Compile Include="DatacleaningStrategies\RemoveWhitespaceStrategy.cs" />
+    <Compile Include="DatacleaningStrategies\RemoveRowsWithNullValuesStrategy.cs" />
+    <Compile Include="DatacleaningStrategies\RemoveHeadersStrategy.cs" />
     <Compile Include="DataScraper.cs" />
+    <Compile Include="Interfaces\IDatacleaner.cs" />
+    <Compile Include="DatacleaningStrategies\NoCleaningStrategy.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Worker.cs" />

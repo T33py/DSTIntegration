@@ -1,4 +1,6 @@
-﻿using DSTIntegration;
+﻿using DSTDataScraper.DatacleaningStrategies;
+using DSTDataScraper.Interfaces;
+using DSTIntegration;
 using DSTIntegrationLib;
 using DSTIntegrationLib.SerializationObjects;
 using System;
@@ -28,12 +30,14 @@ namespace DSTDataScraper
 
         DSTRequestHandler requestHandler;
         TableMetadata metadata;
-        int exit_code = 42;
+        IDatacleaner datacleaner = new NoNullsStrategy();
 
         Random rand = new Random();
         List<string> namechars = new List<string>() { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "æ", "ø", "å" };
         Mutex GetAssignment_m = new Mutex();
         Mutex HandInAssignment_m = new Mutex();
+
+        int exit_code = 42;
 
         public DataScraper()
         {
@@ -46,15 +50,18 @@ namespace DSTDataScraper
 
         public int Setup()
         {
-            Console.WriteLine("Getting metadata.");
             requestHandler = new DSTRequestHandler(true);
+            Console.WriteLine("Getting metadata.");
             metadata = requestHandler.GetTableMetadata("LPRIS16");
-            Console.WriteLine("Available tables:\n");
-            
+            Console.WriteLine("Table information:\n");
+            Console.WriteLine(metadata.ToString());
+
             Console.WriteLine("building todolist.");
             GenerateTodoList();
+            if (exit_code != (int)ExitCodes.TodolistBuilt) return exit_code;
 
-            return exit_code;
+
+            return (int)ExitCodes.OK;
         }
 
         /// <summary>
@@ -66,9 +73,20 @@ namespace DSTDataScraper
             Console.WriteLine($"Available cores: {Environment.ProcessorCount}");
             Console.WriteLine("Scraping data.");
 
+            try
+            {
+                Testrun();
+                if (exit_code != (int)ExitCodes.OK) return exit_code;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return (int)ExitCodes.InvalidRequest;
+            }
+
 
             // create as many workers as there is cores available to run them on.
-            for (int i = 0; i < Environment.ProcessorCount; i++)
+            for (int i = 0; i < 4 - 1; i++)
             {
                 SpawnWorker().Start();
             }
@@ -77,7 +95,6 @@ namespace DSTDataScraper
 
             // wait for workers to finish
             bool waiting = true;
-            int last_done_count = 0;
             var _25 = true;
             var _50 = true;
             var _75 = true;
@@ -100,20 +117,74 @@ namespace DSTDataScraper
 
                 if (done) waiting = false;
             }
+            Console.WriteLine($"{100}%");
 
+            // print metadata
+            File.WriteAllText(Environment.CurrentDirectory + @"\output\metadata.txt", metadata.ToString());
 
             // print data
             var data_ = new List<string>();
             foreach(var request in AllRequests)
             {
-                if (Data.Keys.Contains(request)) data_.Add(Data[request]);
+                if (Data.Keys.Contains(request)) 
+                {
+                    var stuff = Data[request];
+                    data_.Add(stuff);
+                    
+                    if (stuff.Equals(string.Empty))
+                    {
+                        Console.WriteLine("No usefull data for: " + request.variables[0].values[0].id);
+                    }
+                }
             }
-
             File.AppendAllLines(Environment.CurrentDirectory + @"\output\testrun.csv", data_);
 
+            // print raw data
+            data_ = new List<string>();
+            foreach (var request in AllRequests)
+            {
+                foreach (var worker in workers)
+                {
+                    if (worker.raw_data.Keys.Contains(request))
+                    {
+                        var stuff = worker.raw_data[request];
+                        data_.Add(stuff);
 
-            exit_code = 42;
-            return exit_code;
+                        if (stuff.Equals(string.Empty))
+                        {
+                            Console.WriteLine("No raw data for: " + request.variables[0].values[0].id);
+                        }
+                    }
+                }
+            }
+            File.AppendAllLines(Environment.CurrentDirectory + @"\output\testrun_raw.csv", data_);
+
+
+
+            return (int)ExitCodes.OK;
+        }
+
+        /// <summary>
+        /// Run the first request to make shure everything is ready
+        /// </summary>
+        void Testrun()
+        {
+            exit_code = (int)ExitCodes.OK;
+
+            var tst_request = RequestAssignment();
+            var data = requestHandler.GetTableData(tst_request);
+
+            if (data.Contains("errorTypeCode"))
+            {
+                Console.WriteLine("Testrequest failed with this message:");
+                Console.WriteLine(data);
+                exit_code = (int)ExitCodes.InvalidRequest;
+                return;
+            }
+
+            data = datacleaner.CleanData(data);
+
+            HandInAssignment(data, tst_request);
         }
 
         /// <summary>
@@ -122,7 +193,7 @@ namespace DSTDataScraper
         /// <returns></returns>
         Thread SpawnWorker()
         {
-            Worker foo = new Worker(GenerateWorkerName(), this);
+            Worker foo = new Worker(GenerateWorkerName(), this, new NoHeadersOrNullsStrategy());
             Console.WriteLine($"new worker {foo.Name}");
             workers.Add(foo);
             WorkersFinished[foo.Name] = false;
@@ -302,6 +373,8 @@ namespace DSTDataScraper
 
     public enum ExitCodes
     {
+        OK = 0,
+        InvalidRequest = 12,
         TodolistBuilt = 20,
         NotImplemented = 42
     }
